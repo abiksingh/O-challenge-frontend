@@ -13,7 +13,6 @@ import {
   MenuItem,
   Fade,
 } from '@mui/material';
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
 const BitcoinPriceScreen = () => {
   const dispatch = useDispatch();
@@ -24,9 +23,6 @@ const BitcoinPriceScreen = () => {
   const getPriceHistory = useSelector((state: any) => state.getPriceHistory);
   const { priceHistory } = getPriceHistory;
 
-  console.log(price);
-  console.log(priceHistory);
-
   const [currency, setCurrency] = useState('USD');
 
   useEffect(() => {
@@ -36,12 +32,29 @@ const BitcoinPriceScreen = () => {
 
   const [currentPrice, setCurrentPrice] = useState(0);
 
-  //   useEffect(() => {
-  //     const interval = setInterval(() => {
-  //       return setCurrentPrice(price?.bpi.EUR.rate);
-  //     }, 1000);
-  //     return () => clearInterval(interval);
-  //   }, [price?.bpi.EUR.rate]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (currency === 'USD') {
+        setCurrentPrice(price?.bpi.USD?.rate);
+      } else if (currency === 'EUR') {
+        setCurrentPrice(price?.bpi.EUR?.rate);
+      } else if (currency === 'CNY') {
+        setCurrentPrice(price?.bpi.CNY?.rate);
+      } else if (currency === 'JPY') {
+        setCurrentPrice(price?.bpi.JPY?.rate);
+      } else {
+        setCurrentPrice(price?.bpi.PLN?.rate);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [
+    price?.bpi.USD?.rate,
+    price?.bpi.EUR?.rate,
+    price?.bpi.CNY?.rate,
+    price?.bpi.JPY?.rate,
+    price?.bpi.PLN?.rate,
+    currency,
+  ]);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -56,7 +69,7 @@ const BitcoinPriceScreen = () => {
     <div>
       <Header />
       <Container>
-        <Card sx={{ width: 175, marginBottom: 10, marginTop: 10 }}>
+        <Card sx={{ width: 200, marginBottom: 10, marginTop: 10 }}>
           <CardContent>
             <Typography
               sx={{ fontSize: 24 }}
