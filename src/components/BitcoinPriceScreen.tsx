@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPrice, getAllPriceHistory } from '../redux/actions/priceActions';
 import { Line } from 'react-chartjs-2';
@@ -105,7 +105,7 @@ const BitcoinPriceScreen = () => {
   };
 
   return (
-    <div>
+    <>
       <Header />
       <Container>
         <CardButtonWrapper>
@@ -116,6 +116,7 @@ const BitcoinPriceScreen = () => {
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
             variant="outlined"
+            data-testid="button-item"
           >
             Pick Currency
           </Button>
@@ -172,7 +173,11 @@ const BitcoinPriceScreen = () => {
           </Menu>
           <Card sx={{ width: 210, height: 60 }}>
             <CardContent>
-              <Typography sx={{ fontSize: 24 }} color="text.secondary">
+              <Typography
+                data-testid="price-item"
+                sx={{ fontSize: 24 }}
+                color="text.secondary"
+              >
                 {currency === 'USD'
                   ? '$'
                   : currency === 'EUR'
@@ -187,32 +192,33 @@ const BitcoinPriceScreen = () => {
             </CardContent>
           </Card>
         </CardButtonWrapper>
-
-        {priceHistory?.bpi && (
-          <Line
-            data={{
-              labels: Object.keys(priceHistory?.bpi),
-              datasets: [
-                {
-                  label: 'Historical Price Data of Bitcoin ',
-                  data: Object.values(priceHistory?.bpi),
-                  fill: false,
-                  backgroundColor: 'rgb(255, 99, 132)',
-                  borderColor: 'rgba(255, 99, 132, 0.2)',
+        <div data-testid="chart-item">
+          {priceHistory?.bpi && (
+            <Line
+              data={{
+                labels: Object.keys(priceHistory?.bpi),
+                datasets: [
+                  {
+                    label: 'Historical Price Data of Bitcoin ',
+                    data: Object.values(priceHistory?.bpi),
+                    fill: false,
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgba(255, 99, 132, 0.2)',
+                  },
+                ],
+              }}
+              options={{
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                  },
                 },
-              ],
-            }}
-            options={{
-              scales: {
-                y: {
-                  beginAtZero: true,
-                },
-              },
-            }}
-          />
-        )}
+              }}
+            />
+          )}
+        </div>
       </Container>
-    </div>
+    </>
   );
 };
 
