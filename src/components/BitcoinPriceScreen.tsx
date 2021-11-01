@@ -72,27 +72,27 @@ const BitcoinPriceScreen = () => {
   const [currentPrice, setCurrentPrice] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const setCurrencyRate = () => {
       if (currency === 'USD') {
-        setCurrentPrice(price?.bpi.USD?.rate!);
+        setCurrentPrice(price?.bpi.USD?.rate || 0);
       } else if (currency === 'EUR') {
-        setCurrentPrice(price?.bpi.EUR?.rate!);
+        setCurrentPrice(price?.bpi.EUR?.rate || 0);
       } else if (currency === 'CNY') {
-        setCurrentPrice(price?.bpi.CNY?.rate!);
+        setCurrentPrice(price?.bpi.CNY?.rate || 0);
       } else if (currency === 'JPY') {
-        setCurrentPrice(price?.bpi.JPY?.rate!);
+        setCurrentPrice(price?.bpi.JPY?.rate || 0);
       } else {
-        setCurrentPrice(price?.bpi.PLN?.rate!);
+        setCurrentPrice(price?.bpi.PLN?.rate || 0);
       }
-    }, 0);
-    return () => clearInterval(interval);
+    };
+    setCurrencyRate();
   }, [
+    currency,
     price?.bpi.USD?.rate,
     price?.bpi.EUR?.rate,
     price?.bpi.CNY?.rate,
     price?.bpi.JPY?.rate,
     price?.bpi.PLN?.rate,
-    currency,
   ]);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
