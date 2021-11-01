@@ -15,7 +15,7 @@ export const getPrice = (currency: string) => async (dispatch: Dispatch) => {
       type: GET_PRICE_REQUEST,
     });
 
-    const { data }: any = await axios.get(
+    const { data } = await axios.get(
       `https://api.coindesk.com/v1/bpi/currentprice/${currency}.json`
     );
 
@@ -41,8 +41,8 @@ export const getAllPriceHistory =
         type: GET_PRICE_HISTORY_REQUEST,
       });
 
-      const { data }: any = await axios.get(
-        `https://api.coindesk.com/v1/bpi/historical/close.json?currency=${currency}`
+      const { data } = await axios.get(
+        `https://api.coindesk.com/v1/bpi/historical/close.json?currency=${currency}&start=2021-10-24&end=2021-10-31`
       );
 
       dispatch({
