@@ -13,15 +13,54 @@ import {
   MenuItem,
   Fade,
 } from '@mui/material';
+import { CardButtonWrapper } from '../UIHelpers/styles';
 
 const BitcoinPriceScreen = () => {
   const dispatch = useDispatch();
 
-  const getBitcoinPrice = useSelector((state: any) => state.getBitcoinPrice);
-  const { price } = getBitcoinPrice;
+  type getBitCoinPriceState = {
+    getBitcoinPrice: {
+      price: {
+        bpi: {
+          CNY?: {
+            rate: number;
+          };
+          JPY?: {
+            rate: number;
+          };
+          USD?: {
+            rate: number;
+          };
+          EUR?: {
+            rate: number;
+          };
+          PLN?: {
+            rate: number;
+          };
+        };
+      };
+    };
+  };
 
-  const getPriceHistory = useSelector((state: any) => state.getPriceHistory);
+  type getPriceHistoryState = {
+    getPriceHistory: {
+      priceHistory: {
+        bpi: string;
+      };
+    };
+  };
+
+  const getBitcoinPrice = useSelector(
+    (state: getBitCoinPriceState) => state.getBitcoinPrice
+  );
+  const { price } = getBitcoinPrice;
+  console.log(price);
+
+  const getPriceHistory = useSelector(
+    (state: getPriceHistoryState) => state.getPriceHistory
+  );
   const { priceHistory } = getPriceHistory;
+  console.log(priceHistory);
 
   const [currency, setCurrency] = useState('USD');
 
@@ -35,17 +74,17 @@ const BitcoinPriceScreen = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (currency === 'USD') {
-        setCurrentPrice(price?.bpi.USD?.rate);
+        setCurrentPrice(price?.bpi.USD?.rate!);
       } else if (currency === 'EUR') {
-        setCurrentPrice(price?.bpi.EUR?.rate);
+        setCurrentPrice(price?.bpi.EUR?.rate!);
       } else if (currency === 'CNY') {
-        setCurrentPrice(price?.bpi.CNY?.rate);
+        setCurrentPrice(price?.bpi.CNY?.rate!);
       } else if (currency === 'JPY') {
-        setCurrentPrice(price?.bpi.JPY?.rate);
+        setCurrentPrice(price?.bpi.JPY?.rate!);
       } else {
-        setCurrentPrice(price?.bpi.PLN?.rate);
+        setCurrentPrice(price?.bpi.PLN?.rate!);
       }
-    }, 1000);
+    }, 0);
     return () => clearInterval(interval);
   }, [
     price?.bpi.USD?.rate,
@@ -69,77 +108,86 @@ const BitcoinPriceScreen = () => {
     <div>
       <Header />
       <Container>
-        <Card sx={{ width: 200, marginBottom: 10, marginTop: 10 }}>
-          <CardContent>
-            <Typography
-              sx={{ fontSize: 24 }}
-              color="text.secondary"
-              gutterBottom
+        <CardButtonWrapper>
+          <Button
+            id="fade-button"
+            aria-controls="fade-menu"
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleClick}
+            variant="outlined"
+          >
+            Pick Currency
+          </Button>
+          <Menu
+            id="fade-menu"
+            MenuListProps={{
+              'aria-labelledby': 'fade-button',
+            }}
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            TransitionComponent={Fade}
+          >
+            <MenuItem
+              onClick={() => {
+                setCurrency('USD');
+                setAnchorEl(null);
+              }}
             >
-              {currentPrice}
-            </Typography>
-          </CardContent>
-        </Card>
-        <Button
-          id="fade-button"
-          aria-controls="fade-menu"
-          aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
-          onClick={handleClick}
-        >
-          Currency
-        </Button>
-        <Menu
-          id="fade-menu"
-          MenuListProps={{
-            'aria-labelledby': 'fade-button',
-          }}
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          TransitionComponent={Fade}
-        >
-          <MenuItem
-            onClick={() => {
-              setCurrency('USD');
-              setAnchorEl(null);
-            }}
-          >
-            USD
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              setCurrency('EUR');
-              setAnchorEl(null);
-            }}
-          >
-            EUR
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              setCurrency('CNY');
-              setAnchorEl(null);
-            }}
-          >
-            CNY
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              setCurrency('JPY');
-              setAnchorEl(null);
-            }}
-          >
-            JPY
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              setCurrency('PLN');
-              setAnchorEl(null);
-            }}
-          >
-            PLN
-          </MenuItem>
-        </Menu>
+              $ US Dollar
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                setCurrency('EUR');
+                setAnchorEl(null);
+              }}
+            >
+              € Euro
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                setCurrency('CNY');
+                setAnchorEl(null);
+              }}
+            >
+              ¥ Chinese Yuan
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                setCurrency('JPY');
+                setAnchorEl(null);
+              }}
+            >
+              ¥ Japanese Yen
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                setCurrency('PLN');
+                setAnchorEl(null);
+              }}
+            >
+              zł Poland złoty
+            </MenuItem>
+          </Menu>
+          <Card sx={{ width: 210, height: 60 }}>
+            <CardContent>
+              <Typography sx={{ fontSize: 24 }} color="text.secondary">
+                {currency === 'USD'
+                  ? '$'
+                  : currency === 'EUR'
+                  ? '€'
+                  : currency === 'PLN'
+                  ? ' zł'
+                  : currency === 'JPY' || 'CNY'
+                  ? '¥'
+                  : ''}
+                {currentPrice}
+              </Typography>
+            </CardContent>
+          </Card>
+        </CardButtonWrapper>
+
         {priceHistory?.bpi && (
           <Line
             data={{
