@@ -155,7 +155,7 @@ export const deleteStudent = (id: string) => async (dispatch: Dispatch) => {
       type: DELETE_STUDENT_REQUEST,
     });
 
-    await axios.delete(`/api/student/:${id}`);
+    await axios.delete(`/api/student/${id}`);
 
     dispatch({
       type: DELETE_STUDENT_SUCCESS,

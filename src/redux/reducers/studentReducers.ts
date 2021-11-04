@@ -118,7 +118,10 @@ export const studentDeleteReducer = (state = {}, action: AnyAction) => {
     case DELETE_STUDENT_REQUEST:
       return { loading: true };
     case DELETE_STUDENT_SUCCESS:
-      return { loading: false, success: true };
+      return {
+        loading: false,
+        success: true,
+      };
     case DELETE_STUDENT_FAIL:
       return { loading: false, error: action.payload };
     default:

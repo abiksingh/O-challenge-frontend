@@ -16,7 +16,11 @@ import {
   Typography,
   TextField,
 } from '@mui/material';
-import { getStudentsAction } from '../redux/actions/studentActions';
+import {
+  getStudentsAction,
+  deleteStudent,
+  addStudent,
+} from '../redux/actions/studentActions';
 import { style } from '../UIHelpers/styles';
 
 const StudentInfoScreen = () => {
@@ -35,6 +39,24 @@ const StudentInfoScreen = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const deleteHandler = (id: string) => {
+    dispatch(deleteStudent(id));
+    window.location.reload();
+  };
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [courseName, setCourseName] = useState('');
+  const [hour, setHour] = useState(0);
+  const [price, setPrice] = useState(0);
+
+  const handleSubmit = () => {
+    dispatch(
+      addStudent(firstName, lastName, dateOfBirth, courseName, hour, price)
+    );
+  };
+
   return (
     <>
       <Header />
@@ -52,36 +74,57 @@ const StudentInfoScreen = () => {
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Add Student
             </Typography>
-            <TextField
-              id="outlined-basic"
-              label="First Name"
-              variant="outlined"
-            />
-            <TextField
-              id="outlined-basic"
-              label="Last Name"
-              variant="outlined"
-            />
-            <TextField
-              id="outlined-basic"
-              label="Date of Birth"
-              variant="outlined"
-            />
-            <TextField
-              id="outlined-basic"
-              label="Course Name"
-              variant="outlined"
-            />
-            <TextField id="outlined-basic" label="Hours" variant="outlined" />
-            <TextField id="outlined-basic" label="Price" variant="outlined" />
-            <Button variant="contained">Save</Button>
+            <form onSubmit={handleSubmit}>
+              <TextField
+                id="outlined-basic"
+                label="First Name"
+                variant="outlined"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              <TextField
+                id="outlined-basic"
+                label="Last Name"
+                variant="outlined"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+              <TextField
+                id="outlined-basic"
+                label="Date of Birth"
+                variant="outlined"
+                value={dateOfBirth}
+                onChange={(e) => setDateOfBirth(e.target.value)}
+              />
+              <TextField
+                id="outlined-basic"
+                label="Course Name"
+                variant="outlined"
+                value={courseName}
+                onChange={(e) => setCourseName(e.target.value)}
+              />
+              <TextField
+                id="outlined-basic"
+                label="Hours"
+                variant="outlined"
+                value={hour}
+                onChange={(e: any) => setHour(e.target.value)}
+              />
+              <TextField
+                id="outlined-basic"
+                label="Price"
+                variant="outlined"
+                value={price}
+                onChange={(e: any) => setPrice(e.target.value)}
+              />
+              <Button type="submit" variant="contained">
+                Save
+              </Button>
+            </form>
           </Box>
         </Modal>
-        <TableContainer component={Paper}>
-          <Table
-            sx={{ minWidth: 650, marginTop: 10 }}
-            aria-label="simple table"
-          >
+        <TableContainer sx={{ marginTop: 10 }} component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>First Name</TableCell>
@@ -112,8 +155,14 @@ const StudentInfoScreen = () => {
                     <TableCell align="right">{student.course}</TableCell>
                     <TableCell align="right">{student.hours}</TableCell>
                     <TableCell align="right">{student.price}</TableCell>
-                    <TableCell align="right">Edit</TableCell>
-                    <TableCell align="right">Delete</TableCell>
+                    <TableCell align="right">
+                      <Button>Edit</Button>
+                    </TableCell>
+                    <TableCell align="right">
+                      <Button onClick={() => deleteHandler(student._id)}>
+                        Delete
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
             </TableBody>
