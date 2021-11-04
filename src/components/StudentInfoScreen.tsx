@@ -10,8 +10,14 @@ import {
   TableCell,
   TableBody,
   Paper,
+  Button,
+  Modal,
+  Box,
+  Typography,
+  TextField,
 } from '@mui/material';
 import { getStudentsAction } from '../redux/actions/studentActions';
+import { style } from '../UIHelpers/styles';
 
 const StudentInfoScreen = () => {
   const dispatch = useDispatch();
@@ -25,10 +31,52 @@ const StudentInfoScreen = () => {
     dispatch(getStudentsAction());
   }, [dispatch]);
 
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <>
       <Header />
       <Container>
+        <Button sx={{ marginTop: 10 }} variant="contained" onClick={handleOpen}>
+          Add Student
+        </Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Add Student
+            </Typography>
+            <TextField
+              id="outlined-basic"
+              label="First Name"
+              variant="outlined"
+            />
+            <TextField
+              id="outlined-basic"
+              label="Last Name"
+              variant="outlined"
+            />
+            <TextField
+              id="outlined-basic"
+              label="Date of Birth"
+              variant="outlined"
+            />
+            <TextField
+              id="outlined-basic"
+              label="Course Name"
+              variant="outlined"
+            />
+            <TextField id="outlined-basic" label="Hours" variant="outlined" />
+            <TextField id="outlined-basic" label="Price" variant="outlined" />
+            <Button variant="contained">Save</Button>
+          </Box>
+        </Modal>
         <TableContainer component={Paper}>
           <Table
             sx={{ minWidth: 650, marginTop: 10 }}
