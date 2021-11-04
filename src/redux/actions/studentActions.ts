@@ -18,13 +18,13 @@ import {
   PUT_STUDENT_SUCCESS,
 } from '../constants/studentConstants';
 
-export const getStudents = () => async (dispatch: Dispatch) => {
+export const getStudentsAction = () => async (dispatch: Dispatch) => {
   try {
     dispatch({
       type: GET_STUDENT_REQUEST,
     });
 
-    const { data } = await axios.get(`localhost:5000/api/students`);
+    const { data } = await axios.get(`/api/students`);
 
     dispatch({
       type: GET_STUDENT_SUCCESS,
@@ -47,7 +47,7 @@ export const getStudentsById = (id: string) => async (dispatch: Dispatch) => {
       type: GET_STUDENT_BY_ID_REQUEST,
     });
 
-    const { data } = await axios.get(`localhost:5000/api/students/:${id}`);
+    const { data } = await axios.get(`/api/students/:${id}`);
 
     dispatch({
       type: GET_STUDENT_BY_ID_SUCCESS,
@@ -86,7 +86,7 @@ export const addStudent =
       };
 
       const { data } = await axios.post(
-        `localhost:5000/api/register`,
+        `/api/register`,
         { firstName, lastName, dateOfBirth, course, hours, price },
         config
       );
@@ -129,7 +129,7 @@ export const updateStudent =
       };
 
       const { data } = await axios.put(
-        `localhost:5000/api/student/:${id}`,
+        `/api/student/:${id}`,
         { firstName, lastName, dateOfBirth, course, hours, price },
         config
       );
@@ -155,7 +155,7 @@ export const deleteStudent = (id: string) => async (dispatch: Dispatch) => {
       type: DELETE_STUDENT_REQUEST,
     });
 
-    await axios.delete(`localhost:5000/api/student/:${id}`);
+    await axios.delete(`/api/student/:${id}`);
 
     dispatch({
       type: DELETE_STUDENT_SUCCESS,
