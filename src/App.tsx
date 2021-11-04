@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import BitcoinPriceScreen from './components/BitcoinPriceScreen';
+import StudentInfoScreen from './components/StudentInfoScreen';
 
 const App = () => {
   return (
     <Router>
-      <Route path="/" component={BitcoinPriceScreen} exact />
+      <Route path="/" component={StudentInfoScreen} exact />
     </Router>
   );
 };

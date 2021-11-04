@@ -2,12 +2,18 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import {
-  getBitcoinPriceReducer,
-  getPriceHistoryReducer,
-} from './redux/reducers/priceReducers';
+  getStudentsReducer,
+  getStudentsByIdReducer,
+  registerStudentReducer,
+  updateStudentReducer,
+  studentDeleteReducer,
+} from './redux/reducers/studentReducers';
 const reducer = combineReducers({
-  getBitcoinPrice: getBitcoinPriceReducer,
-  getPriceHistory: getPriceHistoryReducer,
+  getStudents: getStudentsReducer,
+  getStudentsById: getStudentsByIdReducer,
+  registerStudent: registerStudentReducer,
+  updateStudent: updateStudentReducer,
+  studentDelete: studentDeleteReducer,
 });
 
 const middleware = [thunk];
