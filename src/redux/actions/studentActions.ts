@@ -129,7 +129,7 @@ export const updateStudent =
       };
 
       const { data } = await axios.put(
-        `/api/student/:${id}`,
+        `/api/student/${id}`,
         { firstName, lastName, dateOfBirth, course, hours, price },
         config
       );
