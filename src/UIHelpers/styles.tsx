@@ -1,7 +1,19 @@
 import styled from 'styled-components';
 import { device } from './MediaQuery';
 
-export const CardButtonWrapper = styled.div`
+export const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  minWidth: 200,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+export const InputFieldWrapper = styled.div`
   display: flex;
   align-items: space-around;
   justify-content: space-between;
@@ -14,9 +26,9 @@ export const CardButtonWrapper = styled.div`
   }
 
   @media ${device.sm} {
-    flex-direction: row;
-    align-items: space-around;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   @media ${device.lg} {
@@ -25,15 +37,3 @@ export const CardButtonWrapper = styled.div`
     justify-content: space-between;
   }
 `;
-
-export const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 1200,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
