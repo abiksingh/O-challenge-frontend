@@ -47,7 +47,7 @@ export const getStudentsById = (id: string) => async (dispatch: Dispatch) => {
       type: GET_STUDENT_BY_ID_REQUEST,
     });
 
-    const { data } = await axios.get(`/api/students/:${id}`);
+    const { data } = await axios.get(`/api/students/${id}`);
 
     dispatch({
       type: GET_STUDENT_BY_ID_SUCCESS,

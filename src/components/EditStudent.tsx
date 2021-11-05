@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Button, Modal, Box, Typography, TextField } from '@mui/material';
@@ -6,19 +6,19 @@ import { Button, Modal, Box, Typography, TextField } from '@mui/material';
 import { updateStudent } from '../redux/actions/studentActions';
 import { style } from '../UIHelpers/styles';
 
-const EditStudent = ({ id }: any) => {
+const EditStudent = ({ id, first, last, date, module, time, money }: any) => {
   const dispatch = useDispatch();
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
-  const [courseName, setCourseName] = useState('');
-  const [hour, setHour] = useState(0);
-  const [price, setPrice] = useState(0);
+  const [firstName, setFirstName] = useState(first);
+  const [lastName, setLastName] = useState(last);
+  const [dateOfBirth, setDateOfBirth] = useState(date);
+  const [courseName, setCourseName] = useState(module);
+  const [hour, setHour] = useState(time);
+  const [price, setPrice] = useState(money);
 
   const updateHandler = () => {
     dispatch(
@@ -56,6 +56,7 @@ const EditStudent = ({ id }: any) => {
               variant="outlined"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
+              required={true}
             />
             <TextField
               id="outlined-basic"
@@ -63,6 +64,7 @@ const EditStudent = ({ id }: any) => {
               variant="outlined"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
+              required={true}
             />
             <TextField
               id="outlined-basic"
@@ -70,6 +72,7 @@ const EditStudent = ({ id }: any) => {
               variant="outlined"
               value={dateOfBirth}
               onChange={(e) => setDateOfBirth(e.target.value)}
+              required={true}
             />
             <TextField
               id="outlined-basic"
@@ -77,6 +80,7 @@ const EditStudent = ({ id }: any) => {
               variant="outlined"
               value={courseName}
               onChange={(e) => setCourseName(e.target.value)}
+              required={true}
             />
             <TextField
               id="outlined-basic"
@@ -84,6 +88,7 @@ const EditStudent = ({ id }: any) => {
               variant="outlined"
               value={hour}
               onChange={(e: any) => setHour(e.target.value)}
+              required={true}
             />
             <TextField
               id="outlined-basic"
@@ -91,6 +96,7 @@ const EditStudent = ({ id }: any) => {
               variant="outlined"
               value={price}
               onChange={(e: any) => setPrice(e.target.value)}
+              required={true}
             />
             <Button type="submit" variant="contained">
               Save

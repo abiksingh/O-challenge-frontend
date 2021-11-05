@@ -45,6 +45,7 @@ const AddStudent = () => {
               variant="outlined"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
+              required={true}
             />
             <TextField
               id="outlined-basic"
@@ -52,6 +53,7 @@ const AddStudent = () => {
               variant="outlined"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
+              required={true}
             />
             <TextField
               id="outlined-basic"
@@ -59,6 +61,7 @@ const AddStudent = () => {
               variant="outlined"
               value={dateOfBirth}
               onChange={(e) => setDateOfBirth(e.target.value)}
+              required={true}
             />
             <TextField
               id="outlined-basic"
@@ -66,6 +69,7 @@ const AddStudent = () => {
               variant="outlined"
               value={courseName}
               onChange={(e) => setCourseName(e.target.value)}
+              required={true}
             />
             <TextField
               id="outlined-basic"
@@ -73,6 +77,7 @@ const AddStudent = () => {
               variant="outlined"
               value={hour}
               onChange={(e: any) => setHour(e.target.value)}
+              required={true}
             />
             <TextField
               id="outlined-basic"
@@ -80,6 +85,7 @@ const AddStudent = () => {
               variant="outlined"
               value={price}
               onChange={(e: any) => setPrice(e.target.value)}
+              required={true}
             />
             <Button type="submit" variant="contained">
               Save

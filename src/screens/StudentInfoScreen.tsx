@@ -76,7 +76,15 @@ const StudentInfoScreen = () => {
                     <TableCell align="right">{student.hours}</TableCell>
                     <TableCell align="right">{student.price}</TableCell>
                     <TableCell align="right">
-                      <EditStudent id={student._id} />
+                      <EditStudent
+                        id={student._id}
+                        first={student.firstName}
+                        last={student.lastName}
+                        date={student.dateOfBirth}
+                        module={student.course}
+                        time={student.hours}
+                        money={student.price}
+                      />
                     </TableCell>
                     <TableCell align="right">
                       <Button
