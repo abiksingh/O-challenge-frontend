@@ -9,7 +9,7 @@ import { useTheme } from '@mui/material/styles';
 const AddStudent = () => {
   const dispatch = useDispatch();
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const theme = useTheme();
@@ -30,7 +30,11 @@ const AddStudent = () => {
   };
   return (
     <>
-      <Button sx={{ marginTop: 10 }} variant="contained" onClick={handleOpen}>
+      <Button
+        sx={{ marginTop: 10, backgroundColor: '#29D4B2' }}
+        variant="contained"
+        onClick={handleOpen}
+      >
         Add Student
       </Button>
       <Modal
@@ -102,7 +106,7 @@ const AddStudent = () => {
             </InputFieldWrapper>
             <Button
               fullWidth={!matches ? true : false}
-              sx={{ float: 'right' }}
+              sx={{ float: 'right', backgroundColor: '#29D4B2' }}
               type="submit"
               variant="contained"
             >

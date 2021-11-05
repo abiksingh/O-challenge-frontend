@@ -19,11 +19,13 @@ import {
 
 import EditStudent from '../components/EditStudent';
 import AddStudent from '../components/AddStudent';
+import IRootState from '../models/IStudentInfo';
+import IStudentState from '../models/IStudentInfo';
 
 const StudentInfoScreen = () => {
   const dispatch = useDispatch();
 
-  const getStudents = useSelector((state: any) => state.getStudents);
+  const getStudents = useSelector((state: IRootState) => state.getStudents);
   const { data } = getStudents;
 
   console.log(data);
@@ -59,7 +61,7 @@ const StudentInfoScreen = () => {
             </TableHead>
             <TableBody>
               {data &&
-                data.map((student: any) => (
+                data.map((student: IStudentState) => (
                   <TableRow
                     key={student._id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -88,6 +90,7 @@ const StudentInfoScreen = () => {
                     </TableCell>
                     <TableCell align="right">
                       <Button
+                        sx={{ backgroundColor: '#29D4B2' }}
                         variant="contained"
                         onClick={() => deleteHandler(student._id)}
                       >

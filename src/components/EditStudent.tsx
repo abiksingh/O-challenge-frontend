@@ -41,7 +41,11 @@ const EditStudent = ({ id, first, last, date, module, time, money }: any) => {
 
   return (
     <>
-      <Button variant="contained" onClick={handleOpen}>
+      <Button
+        variant="contained"
+        sx={{ backgroundColor: '#29D4B2' }}
+        onClick={handleOpen}
+      >
         Edit
       </Button>
       <Modal
@@ -116,7 +120,7 @@ const EditStudent = ({ id, first, last, date, module, time, money }: any) => {
               fullWidth={!matches ? true : false}
               type="submit"
               variant="contained"
-              sx={{ float: 'right' }}
+              sx={{ float: 'right', backgroundColor: '#29D4B2' }}
             >
               Save
             </Button>
